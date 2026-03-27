@@ -1,0 +1,28 @@
+MAX = 8
+
+class BitString:
+    def __init__(self, prompt):
+        s = input(prompt).strip()
+        if not all(c in '01' for c in s) or len(s) > MAX:
+            print("Oshibka!")
+            exit(1)
+        self.value = s.zfill(MAX)
+    
+    def __str__(self):
+        return self.value
+    
+    def conjunction(self, other):
+        res = ''
+        for i in range(MAX):
+            if self.value[i] == '1' and other.value[i] == '1':
+                res += '1'
+            else:
+                res += '0'
+        return res
+
+a = BitString("Vvod 1 stroki: ")
+b = BitString("Vvod 2 stroki: ")
+
+print("1 stroka:", a)
+print("2 stroka:", b)
+print("Conjuction:", a.conjunction(b))
