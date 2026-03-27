@@ -1,79 +1,41 @@
-import sys
+MAX = 8
 
-def input_s(m):
-    temp_bs = ['0', '0', '0', '0', '0', '0', '0', '0']
-    print("Input bs:", end=" ")
-    line = input()
-    kol = 0
-    for tmp in line:
-        if (tmp not in ['0', '1']) or (kol >= 8):
-            print("Incorrect")
-            sys.exit(0)
-        temp_bs[kol] = tmp
-        kol += 1
-    for i in range(kol):
-        m[8 - kol + i] = temp_bs[i]
+print("Vvod 1 stroki: ", end='')
+a = input()
 
-def fileinput(b, m):
-    try:
-        file = open(b, 'r')
-    except:
-        print("File not found")
-        sys.exit(0)
-    
-    temp_bs = ['0', '0', '0', '0', '0', '0', '0', '0']
-    kol = 0
-    
-    content = file.read().strip()
-    for tmp in content:
-        if (tmp not in ['0', '1']) or (kol >= 8):
-            print("Incorrect")
-            sys.exit(0)
-        temp_bs[kol] = tmp
-        kol += 1
-    
-    for i in range(kol):
-        m[8 - kol + i] = temp_bs[i]
-    
-    file.close()
+for char in a:
+    if char != '0' and char != '1':
+        print("Oshibka!")
+        exit(1)
 
-def output(m):
-    print("Stroka = ", end="")
-    for i in range(8):
-        print(m[i], end="")
-    print()
+len_a = len(a)
+if len_a > MAX:
+    print("Nevernaya dlina")
+    exit(1)
 
-def fileoutput(b, m):
-    file = open(b, 'w')
-    file.write("Stroka = ")
-    for i in range(8):
-        file.write(m[i])
-    file.close()
+a = a.zfill(MAX)
+print("1 stroka:", a)
 
-def conjaction(s1, s2, s3):
-    for i in range(8):
-        if (s1[i] == '1') and (s2[i] == '1'):
-            s3[i] = '1'
-        else:
-            s3[i] = '0'
+print("Vvod 2 stroki: ", end='')
+b = input()
 
-def main():
-    bs1 = ['0', '0', '0', '0', '0', '0', '0', '0']
-    bs2 = ['0', '0', '0', '0', '0', '0', '0', '0']
-    res = ['0', '0', '0', '0', '0', '0', '0', '0']
-    
-    fileinput("b.txt", bs1)
-    input_s(bs2)
-    
-    print("BS 1:", end="")
-    output(bs1)
-    print("BS 2:", end="")
-    output(bs2)
-    
-    conjaction(bs1, bs2, res)
-    output(res)
-    
-    input("Press Enter to continue...")
+for char in b:
+    if char != '0' and char != '1':
+        print("Oshibka")
+        exit(1)
 
-if __name__ == "__main__":
-    main()
+len_b = len(b)
+if len_b > MAX:
+    print("Nevernaya dlina")
+    exit(1)
+
+b = b.zfill(MAX)
+print("2 stroka:", b)
+
+print("Conjuction: ", end='')
+for i in range(MAX):
+    if a[i] == '1' and b[i] == '1':
+        print('1', end='')
+    else:
+        print('0', end='')
+print()
